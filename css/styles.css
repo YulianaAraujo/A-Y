@@ -1,0 +1,621 @@
+@font-face {
+    font-family: 'Stardew Valley';
+    src: url('../assets/fonts/StardewValley.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active {
+    display: block;
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Login Section */
+.castle-room, .lock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.lock {
+    z-index: 2;
+    pointer-events: none; 
+    transition: transform 0.3s ease; 
+}
+
+.lock:hover {
+    transform: scale(1.05); 
+}
+
+.inputs-container {
+    position: absolute;
+    top: 61%;
+    left: 50.1%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px; 
+}
+
+.inputs-container.unlocked {
+    margin-top: 45px; 
+}
+
+.inputs-container.hidden {
+    display: none;
+    transition: transform 0.3s ease; 
+}
+
+.inputs-container input {
+    width: 30px;
+    height: 25px;
+    text-align: center;
+    font-size: 12px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    outline: none;
+}
+
+/* Overlay para transición */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+}
+
+/* Parte 2: Webtoon */
+#webtoon-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.webtoon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 100vh;
+}
+
+.webtoon-image {
+    width: 100%;
+    max-width: 40%;
+    height: auto;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    margin: 0 auto;
+}
+
+/* Modal para la carta */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-image: url('../assets/images/stardew_letter.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    max-width: 1920px;
+    height: 100%;
+    max-height: 600px;
+    position: relative;
+    padding: 80px 220px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    animation: modalAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalAppear {
+    from {
+        transform: scale(0.05);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    margin-bottom: 15px;
+}
+
+.modal-header h2 {
+    font-family: 'Stardew Valley', monospace;
+    font-size: 2rem;
+    color: #6B4423;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.modal-body {
+    flex: 1;
+    font-family: 'Stardew Valley', monospace;
+    font-size: 2rem;
+    color: #5C3317;
+    line-height: 1.8;
+    overflow-y: auto;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.modal-body p {
+    margin: 12px 0;
+    text-align: justify;
+}
+
+.modal-body p:last-child {
+    margin-top: 30px;
+    text-align: right;
+    font-style: italic;
+}
+
+/* Botón flecha para continuar */
+.close-button {
+    position: absolute;
+    bottom: 80px;
+    right: 200px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.close-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.close-button:hover {
+    transform: scale(1.15);
+}
+
+/* Parte 3: Galería - Carrusel horizontal */
+#gallery-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #2d2d2d;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: block;
+    scroll-behavior: smooth;
+}
+
+.gallery-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.gallery-character {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    height: 300px;
+    width: auto;
+    z-index: 5;
+    pointer-events: none;
+    transition: left 0.1s ease;
+}
+
+.gallery-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    height: 100vh;
+    width: max-content;
+}
+
+.gallery-container {
+    display: flex;
+    gap: 50px;
+    height: 60vh;
+    width: max-content;
+    padding: 0 80px;
+}
+
+.gallery-item {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.gallery-frame {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    border: 8px solid #8B6F47;
+    background-color: #f5f1e8;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.gallery-frame:hover {
+    transform: scale(1.02);
+}
+
+.gallery-frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.gallery-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(245, 241, 232, 0.7);
+    border: 3px dashed #8B6F47;
+}
+
+.upload-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+.upload-text {
+    font-family: 'Stardew Valley', monospace;
+    font-size: 18px;
+    color: #8B6F47;
+    margin: 0;
+}
+
+.upload-input {
+    display: none;
+}
+
+/* Botones de acción después de upload */
+.gallery-buttons {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 15;
+    display: flex;
+    gap: 20px;
+}
+
+.gallery-btn {
+    width: 60px;
+    height: 60px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gallery-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.gallery-btn:hover:not(.disabled) {
+    transform: scale(1.1);
+}
+
+.gallery-btn.visible {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gallery-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Modal para imagen ampliada */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.image-modal.hidden {
+    display: none;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 95%;
+    max-height: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 8px solid #8B6F47;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.image-modal-close:hover {
+    color: #ddd;
+}
+
+/* Animación de fuegos pirotecnicos */
+@keyframes firework {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+.firework {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 20;
+    animation: firework 1.5s ease-out forwards;
+}
+
+.firework.red {
+    background-color: #ff0000;
+}
+
+.firework.gold {
+    background-color: #ffd700;
+}
+
+.firework.blue {
+    background-color: #0099ff;
+}
+
+/* Scrollbar personalizada */
+#webtoon-section::-webkit-scrollbar {
+    width: 10px;
+}
+
+#webtoon-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#webtoon-section::-webkit-scrollbar-thumb {
+    background: #1A6778;
+    border-radius: 5px;
+}
+
+#webtoon-section::-webkit-scrollbar-thumb:hover {
+    background: #35aac4;
+}
+
+#gallery-section::-webkit-scrollbar {
+    height: 8px;
+}
+
+#gallery-section::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#gallery-section::-webkit-scrollbar-thumb {
+    background: #8B6F47;
+    border-radius: 4px;
+}
+
+#gallery-section::-webkit-scrollbar-thumb:hover {
+    background: #b08968;
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+    .webtoon-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        height: 90vh;
+        padding: 30px 25px;
+    }
+
+    .close-button {
+        width: 35px;
+        height: 35px;
+    }
+
+    .gallery-buttons {
+        bottom: 30px;
+        right: 30px;
+    }
+
+    .gallery-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .gallery-frame {
+        width: 90%;
+        height: 85%;
+    }
+}
+
+/* Animación para desvanecimiento de besos */
+@keyframes fadeOut {
+    0% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+/* Animación para el logro */
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animaciones para toast notifications */
+@keyframes slideDown {
+    from {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+}
