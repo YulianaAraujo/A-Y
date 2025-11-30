@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regalo de Aniversario</title>
+    <link rel="icon" type="image/x-icon" href="love.ico">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Parte 1: Login -->
+    <div id="login-section" class="section active">
+        <img src="assets/images/castle_room.png" alt="Habitación del castillo" class="castle-room">
+        <img src="assets/images/lock.png" alt="Candado cerrado" id="lock-image" class="lock">
+        <div class="inputs-container">
+            <input type="number" id="day-input" placeholder="?" maxlength="2" inputmode="numeric">
+            <input type="number" id="month-input" placeholder="?" maxlength="2" inputmode="numeric">
+            <input type="number" id="year-input" placeholder="?" maxlength="2" inputmode="numeric">
+        </div>
+    </div>
+
+    <!-- Overlay para la transición blanca -->
+    <div id="transition-overlay" class="overlay"></div>
+
+    <!-- Parte 2: Webtoon -->
+    <div id="webtoon-section" class="section hidden">
+        <div id="webtoon-container" class="webtoon-container"></div>
+    </div>
+
+    <!-- Modal para la carta de Stardew Valley -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Hola Sir Akaurella,</h2>
+            </div>
+            <div class="modal-body">
+                <p>Seguro se encuentra muy ocupado siendo el caballero mas guapo del reino, quiero que sepas que has sido elegido como invitado de honor para una galeria en el centro civico, estare esperandote.</p>
+                <p>-Princesa de Novigrado</p>
+            </div>
+            <button id="close-modal" class="close-button">
+                <img src="assets/images/arrow_stardewvalley.png" alt="Continuar">
+            </button>
+        </div>
+    </div>
+
+    <!-- Parte 3: Galería -->
+    <div id="gallery-section" class="section hidden">
+        <img src="assets/images/background_gallery.jpg" alt="Fondo galería" class="gallery-background">
+        <img src="assets/images/stardew_character_1.png" alt="Personaje Stardew" class="gallery-character">
+        
+        <div class="gallery-content">
+            <div class="gallery-container" id="gallery-container"></div>
+        </div>
+
+        <!-- Modal para ver imagen ampliada -->
+        <div id="image-modal" class="image-modal hidden">
+            <div class="image-modal-content">
+                <img id="modal-image" src="" alt="Imagen ampliada">
+                <button class="image-modal-close">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
